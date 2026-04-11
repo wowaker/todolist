@@ -1,10 +1,32 @@
-import { createContext, useMemo } from "react";
-import useTasks from "./useTasks";
-import useIncompleteTaskScroll from "./useIncompleteTaskScroll";
+import {createContext, ReactNode, Ref, useMemo} from "react";
+import useTasks from "./useTasks.ts";
+import useIncompleteTaskScroll from "./useIncompleteTaskScroll.ts";
+import {Task} from "@/entities/todo/model/types.ts";
+import React from "react";
 
-export const TasksContext = createContext({});
+type TasksContextType = {
+    tasks: Task[];
+    filteredTasks: Task[] | null;
+    deleteTask: (taskId: number) => void;
+    deleteAllTasks: (tasks: Task[]) => void;
+    toggleTaskComplete: (taskId: number, isDone: boolean) => void;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    newTaskInputRef: Ref<HTMLInputElement>;
+    addTask: (title: string, callbackAfterAdding: () => void) => void;
+    disappearingTaskId: number | null;
+    appearingTaskId: number | null;
+    firstIncompleteTaskRef: React.RefObject<HTMLInputElement | null>;
+    firstIncompleteTaskId: number | undefined;
+}
 
-export const TasksProvider = (props) => {
+type TaskProviderProps = {
+    children: ReactNode;
+}
+
+export const TasksContext = createContext<TasksContextType| null>(null);
+
+export const TasksProvider = (props: TaskProviderProps) => {
   const { children } = props;
 
   const {

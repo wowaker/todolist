@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import Field from "@/shared/ui/Field";
-import { TasksContext } from "@/entities/todo";
+import { TasksContext } from "@/entities/todo/index.js";
+import styles from './SearchTaskForm.module.scss'
 
-const SearchTaskForm = (props) => {
-  const { styles } = props;
+const SearchTaskForm = () => {
   const { searchQuery, setSearchQuery } = useContext(TasksContext);
 
   return (

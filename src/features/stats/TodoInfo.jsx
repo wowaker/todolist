@@ -1,8 +1,8 @@
 import { memo, useMemo, useContext } from "react";
-import { TasksContext } from "@/entities/todo";
+import { TasksContext } from "@/entities/todo/index.js";
+import styles from './TodoInfo.module.scss'
 
-const TodoInfo = (props) => {
-  const { styles } = props;
+const TodoInfo = () => {
   const { tasks, deleteAllTasks } = useContext(TasksContext);
 
   const total = tasks?.length;

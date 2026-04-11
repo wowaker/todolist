@@ -1,0 +1,11 @@
+.list {
+  --todoListRowGap: 8px;
+
+  display: grid;
+  row-gap: var(--todoListRowGap);
+}
+
+.emptyMessage {
+  text-align: center;
+  color: var(--color-gray-4);
+}
