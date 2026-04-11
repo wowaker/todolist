@@ -1,9 +1,17 @@
-import { memo, useContext } from "react";
-import { TasksContext } from "@/entities/todo";
+import { memo } from "react";
 import RouterLink from "@/shared/ui/RouterLink";
 import styles from "./TodoItem.module.scss";
+import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
+import Checkbox from "@/shared/ui/Checkbox";
 
-const TodoItem = (props) => {
+type TodoItemProps = {
+  className?: string;
+  id: number;
+  title?: string;
+  isDone?: boolean;
+}
+
+const TodoItem = (props: TodoItemProps) => {
   const { className = "", id, title, isDone } = props;
 
   const {
@@ -13,7 +21,7 @@ const TodoItem = (props) => {
     toggleTaskComplete,
     disappearingTaskId,
     appearingTaskId,
-  } = useContext(TasksContext);
+  } = useTasksContext();
 
   return (
     <li
@@ -25,6 +33,7 @@ const TodoItem = (props) => {
       `}
       ref={id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}
     >
+      {/*<Checkbox /> --- в процессе, но стили уже мигрировали*/}
       <input
         className={styles.checkbox}
         id={id}
@@ -46,21 +55,6 @@ const TodoItem = (props) => {
         title="Delete"
         onClick={() => deleteTask(id)}
       >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M15 5L5 15M5 5L15 15"
-            stroke="#757575"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
       </button>
     </li>
   );

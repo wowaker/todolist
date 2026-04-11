@@ -1,28 +1,27 @@
-import { useContext } from "react";
 import AddTaskForm from "@/features/add-task";
 import SearchTaskForm from "@/features/search-task";
 import TodoInfo from "@/features/stats";
-import { TodoList } from "@/entities/todo";
-import { TasksContext } from "@/entities/todo";
+import { TodoList } from "@/entities/todo/index.js";
 import Button from "@/shared/ui/Button";
 import styles from "./Todo.module.scss";
+import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
 
 const Todo = () => {
-  const { firstIncompleteTaskRef } = useContext(TasksContext);
+  const { firstIncompleteTaskRef } = useTasksContext();
   return (
     <div className={styles.todo}>
       <h1 className={styles.title}>To Do List</h1>
-      <AddTaskForm styles={styles} />
-      <SearchTaskForm styles={styles} />
-      <TodoInfo styles={styles} />
+      <AddTaskForm />
+      <SearchTaskForm />
+      <TodoInfo />
       <Button
         onClick={() =>
-          firstIncompleteTaskRef.current?.scrollIntoView({ behavior: "smooth" })
+          firstIncompleteTaskRef?.current.scrollIntoView({ behavior: "smooth" })
         }
       >
         Show first incomplete task
       </Button>
-      <TodoList styles={styles} />
+      <TodoList />
     </div>
   );
 };

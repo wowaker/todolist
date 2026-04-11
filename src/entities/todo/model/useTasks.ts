@@ -1,7 +1,15 @@
 import { useState, useEffect, useRef, useCallback, useMemo, useReducer } from "react";
 import tasksAPI from "@/shared/api/tasks";
+import {Task} from "@/entities/todo/model/types.ts";
 
-const tasksReducer = (state, action) => {
+type Action =
+    | { type: "SET_ALL"; tasks: Task[] }
+    | { type: "ADD"; task: Task }
+    | { type: "TOGGLE_COMPLETE"; id: number; isDone: boolean }
+    | { type: "DELETE"; id: number }
+    | { type: "DELETE_ALL" };
+
+const tasksReducer = (state: Task[], action: Action) => {
   switch (action.type) {
     case "SET_ALL": {
       return Array.isArray(action.tasks) ? action.tasks : state;
@@ -12,12 +20,12 @@ const tasksReducer = (state, action) => {
     case "TOGGLE_COMPLETE": {
       const { id, isDone } = action;
 
-      return state.map((task) => {
+      return state.map((task: Task) => {
         return task.id === id ? { ...task, isDone } : task;
       });
     }
     case "DELETE": {
-      return state.filter((task) => task.id !== action.id);
+      return state.filter((task: Task) => task.id !== action.id);
     }
     case "DELETE_ALL": {
       return [];
@@ -32,10 +40,10 @@ const useTasks = () => {
   const [tasks, dispatch] = useReducer(tasksReducer, []);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [disappearingTaskId, setDisappearingTaskId] = useState(null);
-  const [appearingTaskId, setAppearingTaskId] = useState(null);
+  const [disappearingTaskId, setDisappearingTaskId] = useState<number | null>(null);
+  const [appearingTaskId, setAppearingTaskId] = useState<number | null>(null);
 
-  const newTaskInputRef = useRef(null);
+  const newTaskInputRef = useRef<HTMLInputElement | null>(null);
 
   const deleteAllTasks = useCallback(() => {
     const isConfirmed = confirm("Are you sure?");
@@ -44,7 +52,7 @@ const useTasks = () => {
     }
   }, [tasks]);
 
-  const deleteTask = useCallback((taskId) => {
+  const deleteTask = useCallback((taskId: number) => {
     tasksAPI.delete(taskId).then(() => {
       setDisappearingTaskId(taskId);
       setTimeout(() => {
@@ -54,13 +62,13 @@ const useTasks = () => {
     });
   }, []);
 
-  const toggleTaskComplete = useCallback((taskId, isDone) => {
+  const toggleTaskComplete = useCallback((taskId: number, isDone: boolean) => {
     tasksAPI.toggleComplete(taskId, isDone).then(() => {
       dispatch({ type: "TOGGLE_COMPLETE", id: taskId, isDone });
     });
   }, []);
 
-  const addTask = useCallback((title, callbackAfterAdding) => {
+  const addTask = useCallback((title: string, callbackAfterAdding: () => void) => {
     const newTask = {
       title,
       isDone: false,
@@ -70,7 +78,7 @@ const useTasks = () => {
       dispatch({ type: "ADD", task: addedTask });
       callbackAfterAdding();
       setSearchQuery("");
-      newTaskInputRef.current.focus();
+      newTaskInputRef.current?.focus();
       setAppearingTaskId(addedTask.id);
       setTimeout(() => {
         setAppearingTaskId(null);
@@ -79,7 +87,7 @@ const useTasks = () => {
   }, []);
 
   useEffect(() => {
-    newTaskInputRef.current.focus();
+    newTaskInputRef.current?.focus();
 
     tasksAPI.getAll().then((serverTasks) => {
       dispatch({ type: "SET_ALL", tasks: serverTasks });
@@ -89,7 +97,7 @@ const useTasks = () => {
   const filteredTasks = useMemo(() => {
     const clearSearchQuery = searchQuery.trim().toLowerCase();
     return clearSearchQuery.length > 0
-      ? tasks.filter((task) => task.title.toLowerCase().includes(clearSearchQuery))
+      ? tasks.filter((task: Task) => task.title.toLowerCase().includes(clearSearchQuery))
       : null;
   }, [searchQuery, tasks]);
 

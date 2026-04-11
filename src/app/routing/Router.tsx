@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import {Routes} from "@/app/routes";
 
-export const useRoute = () => {
+
+interface RouterProps {
+  routes: Routes;
+}
+
+export const useRoute = (): string  => {
   const [path, setPath] = useState(window.location.pathname);
 
   useEffect(() => {
@@ -18,18 +24,18 @@ export const useRoute = () => {
   return path;
 };
 
-const Router = (props) => {
+const Router = (props: RouterProps) => {
   const { routes } = props;
-  const path = useRoute();
+  const path: string = useRoute();
 
   if (path.startsWith("/tasks/")) {
     const id = path.replace("/tasks/", "");
     const TaskPage = routes["/tasks/:id"];
 
-    return <TaskPage params={{ id }} />;
+    return <TaskPage id={id} />;
   }
 
-  const Page = routes[path] ?? routes["*"];
+  const Page = routes['/'] ?? routes["*"]; // затычка, надо поправить
 
   return <Page />;
 };

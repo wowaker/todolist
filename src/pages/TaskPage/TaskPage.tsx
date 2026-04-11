@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import tasksApi from "@/shared/api/tasks";
+import {Task} from "@/entities/todo/model/types.ts";
 
-const TaskPage = (props) => {
-  const { params } = props;
+type TaskPageProps = {
+  id: string
+}
 
-  const taskId = params.id;
+const TaskPage = (props: TaskPageProps) => {
+  const { id } = props;
 
-  const [task, setTask] = useState(null);
+  const [task, setTask] = useState<Task| null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     tasksApi
-      .getById(taskId)
+      .getById(id)
       .then((taskData) => {
         setTask(taskData);
         setHasError(false);
@@ -35,8 +38,8 @@ const TaskPage = (props) => {
 
   return (
     <div>
-      <h1>{task.title}</h1>
-      <p>{task.isDone ? "Задача выполнена" : "Задача не выполнена"}</p>
+      <h1>{task?.title}</h1>
+      <p>{task?.isDone ? "Задача выполнена" : "Задача не выполнена"}</p>
     </div>
   );
 };
