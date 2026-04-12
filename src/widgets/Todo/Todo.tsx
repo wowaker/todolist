@@ -1,7 +1,7 @@
 import AddTaskForm from "@/features/add-task";
 import SearchTaskForm from "@/features/search-task";
 import TodoInfo from "@/features/stats";
-import { TodoList } from "@/entities/todo/index.js";
+import {TodoList}  from "@/entities/todo";
 import Button from "@/shared/ui/Button";
 import styles from "./Todo.module.scss";
 import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
@@ -16,7 +16,7 @@ const Todo = () => {
       <TodoInfo />
       <Button
         onClick={() =>
-          firstIncompleteTaskRef?.current.scrollIntoView({ behavior: "smooth" })
+          firstIncompleteTaskRef.current?.scrollIntoView({ behavior: "smooth" })
         }
       >
         Show first incomplete task

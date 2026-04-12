@@ -1,14 +1,15 @@
 import {createContext, ReactNode, Ref, useMemo} from "react";
 import useTasks from "./useTasks.ts";
 import useIncompleteTaskScroll from "./useIncompleteTaskScroll.ts";
-import {Task} from "@/entities/todo/model/types.ts";
-import React from "react";
+import { Task } from "./types.ts";
+import { RefObject } from "react";
+
 
 type TasksContextType = {
     tasks: Task[];
     filteredTasks: Task[] | null;
     deleteTask: (taskId: number) => void;
-    deleteAllTasks: (tasks: Task[]) => void;
+    deleteAllTasks: () => void;
     toggleTaskComplete: (taskId: number, isDone: boolean) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
@@ -16,8 +17,8 @@ type TasksContextType = {
     addTask: (title: string, callbackAfterAdding: () => void) => void;
     disappearingTaskId: number | null;
     appearingTaskId: number | null;
-    firstIncompleteTaskRef: React.RefObject<HTMLInputElement | null>;
-    firstIncompleteTaskId: number | undefined;
+    firstIncompleteTaskRef: RefObject<HTMLLIElement | null>;
+    firstIncompleteTaskId?: number;
 }
 
 type TaskProviderProps = {

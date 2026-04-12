@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { TodoItem } from "@/entities/todo/index.js";
 import {Task} from "@/entities/todo/model/types.ts";
-import styles from "./Todolist.module.scss";
 import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
+import styles from "./Todolist.module.scss";
 
 const TodoList = () => {
   const { tasks, filteredTasks } = useTasksContext();

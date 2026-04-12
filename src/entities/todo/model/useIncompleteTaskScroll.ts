@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import {Task} from "@/entities/todo/model/types.ts";
+import { Task } from "./types.ts";
 
 const useIncompleteTaskScroll = (tasks: Task[]) => {
   const firstIncompleteTaskRef = useRef(null);

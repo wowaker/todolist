@@ -1,8 +1,9 @@
-import { memo } from "react";
+import {ChangeEvent, memo} from "react";
 import RouterLink from "@/shared/ui/RouterLink";
 import styles from "./TodoItem.module.scss";
 import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
 import Checkbox from "@/shared/ui/Checkbox";
+import Button from "@/shared/ui/Button";
 
 type TodoItemProps = {
   className?: string;
@@ -33,29 +34,27 @@ const TodoItem = (props: TodoItemProps) => {
       `}
       ref={id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}
     >
-      {/*<Checkbox /> --- в процессе, но стили уже мигрировали*/}
-      <input
-        className={styles.checkbox}
-        id={id}
-        type="checkbox"
-        checked={isDone}
-        onChange={(event) => {
-          toggleTaskComplete(id, event.target.checked);
-        }}
+      <Checkbox
+          id={id}
+          checked={isDone}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+        toggleTaskComplete(id, event.target.checked);
+      }}
       />
-      <label className={`${styles.label} visually-hidden`} htmlFor={id}>
+      <label className={`${styles.label} visually-hidden`} htmlFor={`${id}`}>
         {title}
       </label>
       <RouterLink to={`/tasks/${id}`} aria-label="Task detail page">
         {title}
       </RouterLink>
-      <button
-        className={styles.deleteButton}
-        aria-label="Delete"
-        title="Delete"
-        onClick={() => deleteTask(id)}
+      <Button
+          variant={'secondary'}
+          aria-label="Delete"
+          title="Delete"
+          onClick={() => deleteTask(id)}
       >
-      </button>
+        ×
+      </Button>
     </li>
   );
 };

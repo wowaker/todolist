@@ -3,7 +3,7 @@ import tasksApi from "@/shared/api/tasks";
 import {Task} from "@/entities/todo/model/types.ts";
 
 type TaskPageProps = {
-  id: string
+  id: number
 }
 
 const TaskPage = (props: TaskPageProps) => {

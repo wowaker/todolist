@@ -1,21 +1,21 @@
 import Field from "@/shared/ui/Field";
 import Button from "@/shared/ui/Button";
-import { useContext, useState } from "react";
-import { TasksContext } from "@/entities/todo/index.js";
+import {SubmitEvent, ChangeEvent, useState} from "react";
+import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
 import styles from './AddTaskForm.module.scss'
 
 const AddTaskForm = () => {
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  const { addTask, newTaskInputRef } = useContext(TasksContext);
+  const { addTask, newTaskInputRef } = useTasksContext();
 
   const [error, setError] = useState("");
 
   const clearNewTaskTitle = newTaskTitle.trim();
   const isNewTaskTitleEmpty = clearNewTaskTitle.length === 0;
 
-  const addTaskOnSubmit = (event) => {
+  const addTaskOnSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!isNewTaskTitleEmpty) {
@@ -23,7 +23,7 @@ const AddTaskForm = () => {
     }
   };
 
-  const onInput = (event) => {
+  const onInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const clearValue = value.trim();
     const hasOnlySpaces = value.length > 0 && clearValue.length === 0;

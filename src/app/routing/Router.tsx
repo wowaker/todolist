@@ -26,7 +26,7 @@ export const useRoute = (): string  => {
 
 const Router = (props: RouterProps) => {
   const { routes } = props;
-  const path: string = useRoute();
+  const path= useRoute();
 
   if (path.startsWith("/tasks/")) {
     const id = path.replace("/tasks/", "");

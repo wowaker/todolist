@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo, useReducer } from "react";
 import tasksAPI from "@/shared/api/tasks";
-import {Task} from "@/entities/todo/model/types.ts";
+import { Task } from "./types.ts";
 
 type Action =
     | { type: "SET_ALL"; tasks: Task[] }
@@ -20,7 +20,7 @@ const tasksReducer = (state: Task[], action: Action) => {
     case "TOGGLE_COMPLETE": {
       const { id, isDone } = action;
 
-      return state.map((task: Task) => {
+      return state.map((task) => {
         return task.id === id ? { ...task, isDone } : task;
       });
     }

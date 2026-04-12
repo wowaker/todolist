@@ -1,3 +1,5 @@
+import {Task} from "@/entities/todo/model/types.ts";
+
 const URL = "http://localhost:3001/tasks";
 
 const headers = {
@@ -9,11 +11,11 @@ const tasksAPI = {
     return fetch(URL).then((response) => response.json());
   },
 
-  getById: (id) => {
+  getById: (id: number) => {
     return fetch(`${URL}/${id}`).then((response) => response.json());
   },
 
-  add: (task) => {
+  add: (task: Task) => {
     return fetch(URL, {
       method: "POST",
       headers,
@@ -21,19 +23,21 @@ const tasksAPI = {
     }).then((response) => response.json());
   },
 
-  delete: (id) => {
+  delete: (id: number) => {
     return fetch(`${URL}/${id}`, { method: "DELETE" });
   },
 
-  deleteAll: (tasks) => {
+  deleteAll: (tasks: Task[]) => {
     return Promise.all(
       tasks.map(({ id }) => {
-        tasksAPI.delete(id);
+        if (typeof id === "number") {
+          tasksAPI.delete(id);
+        }
       }),
     );
   },
 
-  toggleComplete: (id, isDone) => {
+  toggleComplete: (id: number, isDone: boolean) => {
     return fetch(`${URL}/${id}`, {
       method: "PATCH",
       headers,

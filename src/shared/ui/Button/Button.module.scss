@@ -1,4 +1,4 @@
-.button {
+.primary {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -24,5 +24,33 @@
     background-color: var(--color-gray-3);
     border-color: var(--color-gray-3);
     cursor: not-allowed;
+  }
+}
+
+.secondary {
+  flex-shrink: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  padding: 0;
+  color: var(--color-gray-4);
+  background-color: transparent;
+  border: none;
+  border-radius: inherit;
+
+  &:hover {
+    color: var(--color-white);
+    background-color: var(--color-dark-1);
+  }
+
+  &:active {
+    scale: 1.05;
+  }
+
+  * {
+    pointer-events: none;
   }
 }
