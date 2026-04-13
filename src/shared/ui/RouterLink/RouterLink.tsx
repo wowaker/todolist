@@ -1,7 +1,14 @@
-const RouterLink = (props) => {
+import {ReactNode, MouseEventHandler} from "react";
+
+type RoundProps = {
+  to: string;
+  children: ReactNode;
+}
+
+const RouterLink = (props: RoundProps) => {
   const { to, children, ...rest } = props;
 
-  const handleClick = (event) => {
+  const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.preventDefault();
     window.history.pushState({}, "", to);
     window.dispatchEvent(new PopStateEvent("popstate"));

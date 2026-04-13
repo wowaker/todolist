@@ -1,6 +1,12 @@
 import styles from "./Checkbox.module.scss";
 
-const Checkbox = (props) => {
+type CheckboxProps = {
+    className?: string;
+    checked?: boolean;
+    onChange?: () => void;
+}
+
+const Checkbox = (props: CheckboxProps) => {
     const {
         className,
         checked,

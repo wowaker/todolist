@@ -1,6 +1,16 @@
 import styles from "./Button.module.scss";
+import {ReactNode} from "react";
 
-const Button = (props) => {
+type ButtonProps = {
+  className?: string;
+  variant?: string;
+  type?: 'button' | 'submit' | 'reset';
+  children?: ReactNode;
+  isDisabled?: boolean;
+  onClick?: () => void;
+}
+
+const Button = (props: ButtonProps) => {
   const {
     className = "",
     variant = 'primary',

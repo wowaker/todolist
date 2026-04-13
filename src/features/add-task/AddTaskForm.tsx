@@ -1,6 +1,6 @@
 import Field from "@/shared/ui/Field";
 import Button from "@/shared/ui/Button";
-import {SubmitEvent, ChangeEvent, useState} from "react";
+import {FormEventHandler, ChangeEventHandler, useState} from "react";
 import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
 import styles from './AddTaskForm.module.scss'
 
@@ -15,7 +15,7 @@ const AddTaskForm = () => {
   const clearNewTaskTitle = newTaskTitle.trim();
   const isNewTaskTitleEmpty = clearNewTaskTitle.length === 0;
 
-  const addTaskOnSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const addTaskOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
     if (!isNewTaskTitleEmpty) {
@@ -23,7 +23,7 @@ const AddTaskForm = () => {
     }
   };
 
-  const onInput = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { value } = event.target;
     const clearValue = value.trim();
     const hasOnlySpaces = value.length > 0 && clearValue.length === 0;
@@ -40,7 +40,7 @@ const AddTaskForm = () => {
         value={newTaskTitle}
         error={error}
         newTaskInputRef={newTaskInputRef}
-        onInput={onInput}
+        onChange={onChange}
       />
       <Button type="submit" isDisabled={isNewTaskTitleEmpty}>
         Add

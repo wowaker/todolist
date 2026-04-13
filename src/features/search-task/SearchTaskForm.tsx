@@ -1,10 +1,14 @@
 import Field from "@/shared/ui/Field";
 import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
-import {ChangeEvent} from "react";
 import styles from './SearchTaskForm.module.scss'
+import {ChangeEventHandler} from "react";
 
 const SearchTaskForm = () => {
   const { searchQuery, setSearchQuery } = useTasksContext();
+
+  const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+      setSearchQuery(event?.target.value);
+  }
 
   return (
     <form className={styles.form} onSubmit={(event) => event.preventDefault()}>
@@ -14,9 +18,7 @@ const SearchTaskForm = () => {
         id="search-task"
         type="search"
         value={searchQuery}
-        onInput={(event: ChangeEvent<HTMLInputElement>) => {
-          setSearchQuery(event.target.value);
-        }}
+        onChange={onChange}
       />
     </form>
   );
