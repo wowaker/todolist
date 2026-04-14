@@ -1,28 +1,29 @@
-import { memo, useMemo } from "react";
-import {useTasksContext} from "@/entities/todo/model/useTasksContext.tsx";
-import styles from './TodoInfo.module.scss'
+import { memo, useMemo } from 'react';
+import { useTasksContext } from '@/entities/todo';
+import styles from './TodoInfo.module.scss';
 
 const TodoInfo = () => {
-  const { tasks, deleteAllTasks } = useTasksContext();
+    const {tasks, deleteAllTasks} = useTasksContext();
 
-  const total = tasks?.length;
-  const hasTasks = total > 0;
-  const done = useMemo(() => {
-    return tasks?.filter(({ isDone }) => isDone).length;
-  }, [tasks]);
+    const total = tasks?.length;
+    const hasTasks = total > 0;
+    const done = useMemo(() => {
+        return tasks?.filter(({isDone}) => isDone).length;
+    }, [tasks]);
 
-  return (
-    <div className={styles.info}>
-      <div className={styles.totalTasks}>
-        Done {done} from {total}
-      </div>
-      {hasTasks && (
-        <button className={styles.deleteAllButton} type="button" onClick={deleteAllTasks}>
-          Delete all
-        </button>
-      )}
-    </div>
-  );
+    return (
+        <div className={styles.info}>
+            <div className={styles.totalTasks}>
+                Done {done} from {total}
+            </div>
+            {hasTasks && (
+                <button className={styles.deleteAllButton} type="button"
+                        onClick={deleteAllTasks}>
+                    Delete all
+                </button>
+            )}
+        </div>
+    );
 };
 
 export default memo(TodoInfo);

@@ -4,7 +4,7 @@
 *,
 ::before,
 ::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /**
@@ -12,7 +12,7 @@
   у которых есть атрибут class
  */
 :where(ul, ol):where([class]) {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 /**
@@ -21,7 +21,7 @@
  */
 body,
 :where(blockquote, figure):where([class]) {
-  margin: 0;
+    margin: 0;
 }
 
 /**
@@ -40,17 +40,17 @@ body,
   ol,
   dl
 ):where([class]) {
-  margin-block: 0;
+    margin-block: 0;
 }
 
 :where(dd[class]) {
-  margin-left: 0;
+    margin-left: 0;
 }
 
 :where(fieldset[class]) {
-  margin-left: 0;
-  padding: 0;
-  border: none;
+    margin-left: 0;
+    padding: 0;
+    border: none;
 }
 
 /**
@@ -58,11 +58,11 @@ body,
   у которого есть атрибут class
  */
 :where(ul[class]) {
-  list-style: none;
+    list-style: none;
 }
 
 :where(address[class]) {
-  font-style: normal;
+    font-style: normal;
 }
 
 /**
@@ -71,9 +71,9 @@ body,
   чтобы избежать взаимодействие с более сложным селектором
  */
 p {
-  --paragraphMarginBottom: 24px;
+    --paragraphMarginBottom: 24px;
 
-  margin-block: 0;
+    margin-block: 0;
 }
 
 /**
@@ -81,7 +81,7 @@ p {
   который расположен не последним среди своих соседних элементов
  */
 :where(p:not([class]):not(:last-child)) {
-  margin-bottom: var(--paragraphMarginBottom);
+    margin-bottom: var(--paragraphMarginBottom);
 }
 
 
@@ -90,9 +90,9 @@ p {
  */
 img,
 video {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /**
@@ -102,20 +102,20 @@ input,
 textarea,
 select,
 button {
-  font: inherit;
+    font: inherit;
 }
 
 html {
-  /**
-    Пригодится в большинстве ситуаций
-    (когда, например, нужно будет "прижать" футер к низу сайта)
-   */
-  height: 100%;
-  /**
-    Убираем скачок интерфейса по горизонтали
-    при появлении / исчезновении скроллбара
-   */
-  scrollbar-gutter: stable;
+    /**
+      Пригодится в большинстве ситуаций
+      (когда, например, нужно будет "прижать" футер к низу сайта)
+     */
+    height: 100%;
+    /**
+      Убираем скачок интерфейса по горизонтали
+      при появлении / исчезновении скроллбара
+     */
+    scrollbar-gutter: stable;
 }
 
 /**
@@ -123,26 +123,26 @@ html {
  */
 html,
 :has(:target) {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  /**
-    Пригодится в большинстве ситуаций
-    (когда, например, нужно будет "прижать" футер к низу сайта)
-   */
-  min-height: 100%;
-  /**
-    Унифицированный интерлиньяж
-   */
-  line-height: 1.5;
+    /**
+      Пригодится в большинстве ситуаций
+      (когда, например, нужно будет "прижать" футер к низу сайта)
+     */
+    min-height: 100%;
+    /**
+      Унифицированный интерлиньяж
+     */
+    line-height: 1.5;
 }
 
 /**
   Нормализация высоты элемента ссылки при его инспектировании в DevTools
  */
 a:where([class]) {
-  display: inline-flex;
+    display: inline-flex;
 }
 
 /**
@@ -150,7 +150,7 @@ a:where([class]) {
  */
 button,
 label {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /**
@@ -162,7 +162,7 @@ label {
   [fill="none"],
   [fill^="url"]
 )) {
-  fill: currentColor;
+    fill: currentColor;
 }
 
 /**
@@ -174,22 +174,22 @@ label {
   [stroke="none"],
   [stroke^="url"]
 )) {
-  stroke: currentColor;
+    stroke: currentColor;
 }
 
 /**
   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
  */
 svg * {
-  transition-property: fill, stroke;
+    transition-property: fill, stroke;
 }
 
 /**
   Приведение рамок таблиц в классический 'collapse' вид
  */
 :where(table) {
-  border-collapse: collapse;
-  border-color: currentColor;
+    border-collapse: collapse;
+    border-color: currentColor;
 }
 
 /**
@@ -197,12 +197,12 @@ svg * {
   которые предпочитают их не использовать
  */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

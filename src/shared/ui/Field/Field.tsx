@@ -1,51 +1,47 @@
-import styles from "./Field.module.scss";
-import {ChangeEventHandler, Ref} from 'react'
+import { ComponentProps, Ref } from 'react';
+import styles from './Field.module.scss';
 
-type FieldProps = {
-    className?: string;
-    id?: string;
-    label?: string;
-    type?: string;
-    value?: string;
+interface FieldProps extends ComponentProps<'input'>{
+    wrapperClassName?: string;
+    labelName?: string;
     error?: string;
     newTaskInputRef?: Ref<HTMLInputElement>;
-    onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 const Field = (props: FieldProps) => {
-  const {
-    className = "",
-    id,
-    label,
-    type = "text",
-    value,
-    error,
-    newTaskInputRef,
-    onChange,
-  } = props;
+    const {
+        wrapperClassName = '',
+        labelName,
+        type = 'text',
+        value,
+        error,
+        newTaskInputRef,
+        onChange,
+        ...inputProps
+    } = props;
 
-  return (
-    <div className={`${styles.field} ${className}`}>
-      <label className={styles.label} htmlFor={id}>
-        {label}
-      </label>
-      <input
-        className={`${styles.input} ${error ? styles.isInvalid : ""}`}
-        id={id}
-        placeholder=" "
-        autoComplete="off"
-        type={type}
-        value={value}
-        ref={newTaskInputRef}
-        onChange={onChange}
-      />
-      {error && (
-        <span className={styles.error} title={error}>
+    return (
+        <div className={`${styles.field} ${styles.form} ${wrapperClassName}`}>
+            <label className={styles.label} htmlFor={inputProps.id}>
+                {labelName}
+            </label>
+            <input
+                className={`${styles.input} ${error ? styles.isInvalid : ''}`}
+                id={inputProps.id}
+                placeholder=" "
+                autoComplete="off"
+                type={type}
+                value={value}
+                ref={newTaskInputRef}
+                onChange={onChange}
+            />
+            {error && (
+                <span className={styles.error} title={error}>
           {error}
         </span>
-      )}
-    </div>
-  );
+            )}
+        </div>
+    );
 };
 
 export default Field;

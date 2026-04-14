@@ -1,35 +1,31 @@
-import styles from "./Button.module.scss";
-import {ReactNode} from "react";
+import { ComponentProps } from 'react';
+import styles from './Button.module.scss';
 
-type ButtonProps = {
-  className?: string;
-  variant?: string;
-  type?: 'button' | 'submit' | 'reset';
-  children?: ReactNode;
-  isDisabled?: boolean;
-  onClick?: () => void;
+interface ButtonProps extends ComponentProps<'button'> {
+    variant?: string;
+    isDisabled?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
-  const {
-    className = "",
-    variant = 'primary',
-    type = "button",
-    children,
-    isDisabled,
-    onClick
-  } = props;
+    const {
+        className = '',
+        variant = 'primary',
+        type = 'button',
+        children,
+        isDisabled,
+        onClick
+    } = props;
 
-  return (
-    <button
-      className={`${styles[variant]} ${className}`}
-      type={type}
-      disabled={isDisabled}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
+    return (
+        <button
+            className={`${styles[variant]} ${className}`}
+            type={type}
+            disabled={isDisabled}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
 };
 
 export default Button;

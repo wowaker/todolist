@@ -1,8 +1,7 @@
-import {createContext, ReactNode, Ref, useMemo} from "react";
-import useTasks from "./useTasks.ts";
-import useIncompleteTaskScroll from "./useIncompleteTaskScroll.ts";
-import { Task } from "./types.ts";
-import { RefObject } from "react";
+import { createContext, ReactNode, Ref, RefObject, useMemo } from 'react';
+import useTasks from './useTasks.ts';
+import useIncompleteTaskScroll from './useIncompleteTaskScroll.ts';
+import type { Task } from './types.ts';
 
 
 type TasksContextType = {
@@ -25,60 +24,61 @@ type TaskProviderProps = {
     children: ReactNode;
 }
 
-export const TasksContext = createContext<TasksContextType| null>(null);
+export const TasksContext = createContext<TasksContextType | null>(null);
 
 export const TasksProvider = (props: TaskProviderProps) => {
-  const { children } = props;
+    const {children} = props;
 
-  const {
-    tasks,
-    filteredTasks,
-    deleteTask,
-    deleteAllTasks,
-    toggleTaskComplete,
-    searchQuery,
-    setSearchQuery,
-    newTaskInputRef,
-    addTask,
-    disappearingTaskId,
-    appearingTaskId,
-  } = useTasks();
+    const {
+        tasks,
+        filteredTasks,
+        deleteTask,
+        deleteAllTasks,
+        toggleTaskComplete,
+        searchQuery,
+        setSearchQuery,
+        newTaskInputRef,
+        addTask,
+        disappearingTaskId,
+        appearingTaskId,
+    } = useTasks();
 
-  const { firstIncompleteTaskRef, firstIncompleteTaskId } =
-    useIncompleteTaskScroll(tasks);
+    const {firstIncompleteTaskRef, firstIncompleteTaskId} =
+        useIncompleteTaskScroll(tasks);
 
-  const value = useMemo(
-    () => ({
-      tasks,
-      filteredTasks,
-      deleteTask,
-      deleteAllTasks,
-      toggleTaskComplete,
-      searchQuery,
-      setSearchQuery,
-      newTaskInputRef,
-      addTask,
-      disappearingTaskId,
-      appearingTaskId,
-      firstIncompleteTaskRef,
-      firstIncompleteTaskId,
-    }),
-    [
-      tasks,
-      filteredTasks,
-      deleteTask,
-      deleteAllTasks,
-      toggleTaskComplete,
-      searchQuery,
-      setSearchQuery,
-      newTaskInputRef,
-      addTask,
-      disappearingTaskId,
-      appearingTaskId,
-      firstIncompleteTaskRef,
-      firstIncompleteTaskId,
-    ],
-  );
+    const value = useMemo(
+        () => ({
+            tasks,
+            filteredTasks,
+            deleteTask,
+            deleteAllTasks,
+            toggleTaskComplete,
+            searchQuery,
+            setSearchQuery,
+            newTaskInputRef,
+            addTask,
+            disappearingTaskId,
+            appearingTaskId,
+            firstIncompleteTaskRef,
+            firstIncompleteTaskId,
+        }),
+        [
+            tasks,
+            filteredTasks,
+            deleteTask,
+            deleteAllTasks,
+            toggleTaskComplete,
+            searchQuery,
+            setSearchQuery,
+            newTaskInputRef,
+            addTask,
+            disappearingTaskId,
+            appearingTaskId,
+            firstIncompleteTaskRef,
+            firstIncompleteTaskId,
+        ],
+    );
 
-  return <TasksContext.Provider value={value}> {children} </TasksContext.Provider>;
+    return <TasksContext.Provider
+        value={value}> {children} </TasksContext.Provider>;
 };
