@@ -7,14 +7,14 @@ const TodoInfo = () => {
 
     const total = tasks?.length;
     const hasTasks = total > 0;
-    const done = useMemo(() => {
+    const doneCount = useMemo(() => {
         return tasks?.filter(({isDone}) => isDone).length;
     }, [tasks]);
 
     return (
         <div className={styles.info}>
             <div className={styles.totalTasks}>
-                Done {done} from {total}
+                Done {doneCount} from {total}
             </div>
             {hasTasks && (
                 <button className={styles.deleteAllButton} type="button"

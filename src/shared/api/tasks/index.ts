@@ -9,15 +9,15 @@ const headers = {
 type TaskWithoutId = Omit<Task, 'id'>;
 
 const tasksAPI = {
-    getAll: () => {
+    getAll: (): Promise<Task[]> => {
         return fetch(URL).then((response) => response.json());
     },
 
-    getById: (id: string) => {
+    getById: (id: string): Promise<Task> => {
         return fetch(`${URL}/${id}`).then((response) => response.json());
     },
 
-    add: (task: TaskWithoutId) => {
+    add: (task: TaskWithoutId): Promise<Task> => {
         return fetch(URL, {
             method: 'POST',
             headers,
@@ -25,15 +25,15 @@ const tasksAPI = {
         }).then((response) => response.json());
     },
 
-    delete: (id: number) => {
+    delete: (id: string): Promise<Response> => {
         return fetch(`${URL}/${id}`, {method: 'DELETE'});
     },
 
-    deleteAll: (ids: number[]) => {
+    deleteAll: (ids: string[]): Promise<Response[]>  => {
         return Promise.all(ids.map(id => tasksAPI.delete(id)));
     },
 
-    toggleComplete: (id: number, isDone: boolean) => {
+    toggleComplete: (id: string, isDone: boolean): Promise<Response> => {
         return fetch(`${URL}/${id}`, {
             method: 'PATCH',
             headers,

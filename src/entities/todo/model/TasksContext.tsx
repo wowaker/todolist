@@ -7,17 +7,17 @@ import type { Task } from './types.ts';
 type TasksContextType = {
     tasks: Task[];
     filteredTasks: Task[] | null;
-    deleteTask: (taskId: number) => void;
+    deleteTask: (taskId: string) => void;
     deleteAllTasks: () => void;
-    toggleTaskComplete: (taskId: number, isDone: boolean) => void;
+    toggleTaskComplete: (taskId: string, isDone: boolean) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
     newTaskInputRef: Ref<HTMLInputElement>;
     addTask: (title: string, callbackAfterAdding: () => void) => void;
-    disappearingTaskId: number | null;
-    appearingTaskId: number | null;
+    disappearingTaskId: string | null;
+    appearingTaskId: string | null;
     firstIncompleteTaskRef: RefObject<HTMLLIElement | null>;
-    firstIncompleteTaskId?: number;
+    firstIncompleteTaskId?: string;
 }
 
 type TaskProviderProps = {

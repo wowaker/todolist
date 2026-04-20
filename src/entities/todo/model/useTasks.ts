@@ -12,8 +12,8 @@ import type { Task } from './types.ts';
 type Action =
     | { type: 'SET_ALL'; tasks: Task[] }
     | { type: 'ADD'; task: Task }
-    | { type: 'TOGGLE_COMPLETE'; id: number; isDone: boolean }
-    | { type: 'DELETE'; id: number }
+    | { type: 'TOGGLE_COMPLETE'; id: string; isDone: boolean }
+    | { type: 'DELETE'; id: string }
     | { type: 'DELETE_ALL' };
 
 const tasksReducer = (state: Task[], action: Action) => {
@@ -47,8 +47,8 @@ const useTasks = () => {
     const [tasks, dispatch] = useReducer(tasksReducer, []);
 
     const [searchQuery, setSearchQuery] = useState('');
-    const [disappearingTaskId, setDisappearingTaskId] = useState<number | null>(null);
-    const [appearingTaskId, setAppearingTaskId] = useState<number | null>(null);
+    const [disappearingTaskId, setDisappearingTaskId] = useState<string | null>(null);
+    const [appearingTaskId, setAppearingTaskId] = useState<string | null>(null);
 
     const newTaskInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -60,7 +60,7 @@ const useTasks = () => {
         }
     }, [tasks]);
 
-    const deleteTask = useCallback((taskId: number) => {
+    const deleteTask = useCallback((taskId: string) => {
         tasksAPI.delete(taskId).then(() => {
             setDisappearingTaskId(taskId);
             setTimeout(() => {
@@ -70,7 +70,7 @@ const useTasks = () => {
         });
     }, []);
 
-    const toggleTaskComplete = useCallback((taskId: number, isDone: boolean) => {
+    const toggleTaskComplete = useCallback((taskId: string, isDone: boolean) => {
         tasksAPI.toggleComplete(taskId, isDone).then(() => {
             dispatch({type: 'TOGGLE_COMPLETE', id: taskId, isDone});
         });

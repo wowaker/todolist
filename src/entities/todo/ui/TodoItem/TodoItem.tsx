@@ -1,16 +1,11 @@
 import { ChangeEvent, memo } from 'react';
-import { useTasksContext } from '@/entities/todo';
+import { Task, useTasksContext } from '@/entities/todo';
 import RouterLink from '@/shared/ui/RouterLink';
 import Checkbox from '@/shared/ui/Checkbox';
 import Button from '@/shared/ui/Button';
 import styles from './TodoItem.module.scss';
 
-type TodoItemProps = {
-    className?: string;
-    id: number;
-    title?: string;
-    isDone?: boolean;
-}
+interface TodoItemProps extends Task { className?: string }
 
 const TodoItem = (props: TodoItemProps) => {
     const {className = '', id, title, isDone} = props;
