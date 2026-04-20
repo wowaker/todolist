@@ -1,11 +1,12 @@
 import { ComponentProps } from 'react';
 import styles from './Checkbox.module.scss';
 
-const Checkbox = (props: ComponentProps<'input'>) => {
+const Checkbox = (props: Omit<ComponentProps<'input'>, 'type'>) => {
     const {
         className,
         checked,
-        onChange
+        onChange,
+        ...restProps
     } = props;
 
     return (
@@ -14,6 +15,7 @@ const Checkbox = (props: ComponentProps<'input'>) => {
             className={`${styles.checkbox} ${className}`}
             checked={checked}
             onChange={onChange}
+            {...restProps}
         />
     );
 };

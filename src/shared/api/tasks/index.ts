@@ -6,7 +6,7 @@ const headers = {
     'Content-Type': 'application/json',
 };
 
-type TaskWithoutId = Omit<Task, "id">;
+type TaskWithoutId = Omit<Task, 'id'>;
 
 const tasksAPI = {
     getAll: () => {

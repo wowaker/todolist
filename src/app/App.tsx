@@ -1,5 +1,4 @@
-import Router from './routing/Router';
-import { routes } from './routing/Router';
+import Router, { routes } from './routing/Router';
 import './styles';
 
 const App = () => {

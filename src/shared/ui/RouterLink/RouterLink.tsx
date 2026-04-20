@@ -1,6 +1,6 @@
 import { ComponentProps, MouseEventHandler } from 'react';
 
-interface RoundProps extends ComponentProps<'a'>{
+interface RoundProps extends Omit<ComponentProps<'a'>, 'href'> {
     to: string;
 }
 

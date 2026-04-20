@@ -1,9 +1,10 @@
 import { ComponentProps } from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps extends ComponentProps<'button'> {
+interface ButtonProps extends Omit<ComponentProps<'button'>, 'type'> {
     variant?: string;
     isDisabled?: boolean;
+    type?: 'button';
 }
 
 const Button = (props: ButtonProps) => {
@@ -13,7 +14,9 @@ const Button = (props: ButtonProps) => {
         type = 'button',
         children,
         isDisabled,
-        onClick
+        onClick,
+        ...restProps
+
     } = props;
 
     return (
@@ -22,6 +25,7 @@ const Button = (props: ButtonProps) => {
             type={type}
             disabled={isDisabled}
             onClick={onClick}
+            {...restProps}
         >
             {children}
         </button>

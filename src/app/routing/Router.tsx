@@ -14,23 +14,23 @@ const matchPath = (path: string, route: string) => {
     const routePaths = route.split('/').filter(Boolean);
 
     if (pathParts.length !== routePaths.length) {
-        return null
+        return null;
     }
 
-    const params: Record<string, string> = {}
+    const params: Record<string, string> = {};
 
     for (let i = 0; i < routePaths.length; i++) {
         if (routePaths[i].startsWith(':')) {
-            const paramName = routePaths[i].slice(1)
+            const paramName = routePaths[i].slice(1);
 
-            params[paramName] = pathParts[i]
+            params[paramName] = pathParts[i];
         } else if (routePaths[i] !== pathParts[i]) {
-            return null
+            return null;
         }
     }
 
     return params;
-}
+};
 
 export const useRoute = (): string => {
     const [path, setPath] = useState(window.location.pathname);
@@ -54,18 +54,18 @@ const Router = (props: { routes: typeof routes }) => {
     const {routes} = props;
     const path = useRoute();
 
-    const taskParams = matchPath(path, '/tasks/:id');
-    if (taskParams) {
-        const Page = routes['/tasks/:id'];
-        return <Page id={taskParams.id} />;
-    }
+    for (const route in routes) {
+        const params = matchPath(path, route);
 
-    if (path === '/') {
-        const Page = routes['/'];
-        return <Page />;
+        if (params) {
+            const Page = routes[route as keyof typeof routes];
+
+            return <Page id={params.id} />;
+        }
     }
 
     const NotFound = routes['*'];
+
     return <NotFound />;
 };
 
