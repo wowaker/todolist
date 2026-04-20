@@ -1,1 +1,1 @@
-export { default } from "./TodoInfo";
+export { default } from './TodoInfo.tsx';

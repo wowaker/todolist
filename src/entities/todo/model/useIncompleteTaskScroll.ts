@@ -1,14 +1,14 @@
-import { useRef } from "react";
-import {Task} from "@/entities/todo/model/types.ts";
+import { useRef } from 'react';
+import type { Task } from './types.ts';
 
 const useIncompleteTaskScroll = (tasks: Task[]) => {
-  const firstIncompleteTaskRef = useRef(null);
-  const firstIncompleteTaskId = tasks?.find((task) => !task.isDone)?.id;
+    const firstIncompleteTaskRef = useRef(null);
+    const firstIncompleteTaskId = tasks?.find((task) => !task.isDone)?.id;
 
-  return {
-    firstIncompleteTaskRef,
-    firstIncompleteTaskId,
-  };
+    return {
+        firstIncompleteTaskRef,
+        firstIncompleteTaskId,
+    };
 };
 
 export default useIncompleteTaskScroll;
